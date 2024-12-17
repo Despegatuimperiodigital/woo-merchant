@@ -76,9 +76,11 @@ function transformProductsForGoogle(products) {
     return name
       .toLowerCase()
       .trim()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^\w\s-]/g, '')
-      .replace(/[\s_-]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
   }
 
   return products.map((product, index) => {
@@ -162,7 +164,7 @@ function uploadToFTP(filePath) {
 async function processCSV() {
   try {
     const products = await readCSVWithCSVParser(
-      '' // aqui la ruta del archivo csv
+      'C:/Users/tiare/OneDrive/Escritorio/wc-product-export-16-12-2024-1734358910637.csv' // aqui la ruta del archivo csv
     );
 
     console.log('Productos cargados desde el CSV:', products.length);
