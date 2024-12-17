@@ -164,7 +164,7 @@ function uploadToFTP(filePath) {
 async function processCSV() {
   try {
     const products = await readCSVWithCSVParser(
-      'C:/Users/tiare/OneDrive/Escritorio/wc-product-export-16-12-2024-1734358910637.csv' // aqui la ruta del archivo csv
+      '' // aqui la ruta del archivo csv
     );
 
     console.log('Productos cargados desde el CSV:', products.length);
