@@ -71,6 +71,16 @@ function readCSVWithCSVParser(filePath) {
 function transformProductsForGoogle(products) {
   console.log(`Transformando ${products.length} productos`);
 
+  // Para crear un slug para el link
+  function createSlug(name) {
+    return name
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
   return products.map((product, index) => {
     console.log(`Transformando producto ${index + 1}:`, product);
 
@@ -84,7 +94,9 @@ function transformProductsForGoogle(products) {
       price: product['Precio rebajado']?.trim()
         ? product['Precio rebajado']
         : product['Precio normal'],
-      link: `https://www.cruzeirogomas.cl/producto/${product.SKU}`, // Generar la URL dinámicamente a partir del SKU
+      link: `https://www.cruzeirogomas.cl/producto/${createSlug(
+        product.Nombre
+      )}`,
       image_link: product.Imágenes ? product.Imágenes.split(',')[0] : '',
       brand: product.Etiquetas || 'Generic', // aquí la marca
       condition: 'new', // no encontré info sobre la condición del producto, asi que lo dejé así new
